@@ -1,0 +1,65 @@
+package com.selenuim.basic;
+import org.testng.annotations.Test;
+
+//import org.testng.Assert;
+//import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.support.ui.Select;
+
+
+
+public class firstseleniumclass {
+	WebDriver driver=null;
+	
+	@Parameters("browser")
+	@BeforeMethod
+	public void openBrowser(String browser) {
+		//open the url with selenium
+		if(browser.equalsIgnoreCase("chrome")) {
+	    System.setProperty("webdriver.chrome.driver","C:\\Users\\2266634\\eclipse-workspace\\FirstSeleniumProject\\Driver\\chromedriver.exe");
+	    driver=new ChromeDriver();
+		//to maximize the browser 
+	    driver.manage().window().maximize();
+	}else{
+	    System.setProperty("webdriver.Edge.driver","C:\\Users\\2266634\\eclipse-workspace\\FirstSeleniumProject\\Driver\\msedgedriver.exe");
+	    driver=new ChromeDriver();
+		//to maximize the browser 
+	    driver.manage().window().maximize();
+	}
+		}
+    @Test
+    public void test() {
+	String url="https://www.trivago.in";   
+	driver.get(url);
+    
+    WebElement city=driver.findElement(By.xpath("//*[@id=\"input-auto-complete\"]"));
+    city.click();
+    city.sendKeys("Mumbai");
+   
+	
+	
+    LocalDate currentDate=LocalDate.now();
+     LocalDate futureDate=currentDate.plusDays(7);
+     DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    String formattedDate=futureDate.format(formatter);
+    //Thread.sleep(2000);
+    WebElement journeyDate=driver.findElement(By.xpath("//*[@id=\"overlay-root\"]/div/section/main/div/div/div/div[1]/div[1]/div[1]/button[1]/div/div[2]"));
+    //Thread.sleep(1000);
+    journeyDate.clear();
+    journeyDate.sendKeys(formattedDate);
+    //Thread.sleep(1000);
+}
+
+
+}
