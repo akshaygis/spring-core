@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">  
+<suite name="project">
+	<parameter name = "browser" value ="chrome"></parameter>
+<test name="test">
+	<classes>
+	<class name = "com.selenuim.basic.firstseleniumclass"></class>
+	</classes>
+</test>
+</suite> <!-- Suite -->
+
+
+package com.selenuim.basic;
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+//import org.testng.Assert;
+//import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.support.ui.Select;
+//import org.openqa.selenium.support.ui.Select;
+
+
+
+public class firstseleniumclass{
+	WebDriver driver=null;
+	
+	@Parameters("browser")
+	@BeforeMethod
+	public void openBrowser(String browser)  {
+		//open the url with selenium
+		if(browser.equalsIgnoreCase("chrome")) {
+	    System.setProperty("webdriver.chrome.driver","C:\\Users\\2266634\\eclipse-workspace\\FirstSeleniumProject\\Driver\\chromedriver.exe");
+	    driver=new ChromeDriver();
+	  //  ChromeOptions co = new ChromeOptions();
+	    //co.setPageLoadStrategy(PageLoadStrategy.EAGER);// eager is using to load the page fast
+		//to maximize the browser 
+	    driver.manage().window().maximize();
+	}else{
+	    System.setProperty("webdriver.Edge.driver","C:\\Users\\2266634\\eclipse-workspace\\FirstSeleniumProject\\Driver\\msedgedriver.exe");
+	    driver=new ChromeDriver();
+	    //EdgeOptions eo = new EdgeOptions();
+	    //eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
+		//to maximize the browser 
+		//to maximize the browser 
+	    driver.manage().window().maximize();
+	}
+		}
+    @Test
+    public void test()throws InterruptedException {
+	String url="https://www.trivago.in";   
+	driver.get(url);
+//	WebElement pop = driver.findElement(By.xpath("//*[@id=\"focus-lock-id\"]/div/div/div[2]/div/div/div[2]/div/button[2]"));
+//	pop.click();
+    
+    WebElement city=driver.findElement(By.id("input-auto-complete"));
+   city.click();
+   city.sendKeys("Mumbai");
+   Thread.sleep(1000);
+   city.sendKeys(Keys.ENTER);
+   
+   
+   WebElement date=driver.findElement(By.xpath("//*[@id=\"__next\"]/div[1]/div[1]/section/div[2]/div[3]/div/div[2]/div/div/div/div[3]/ul/li[4]/label"));
+   date.click();
+   
+   
+   WebElement s=driver.findElement(By.xpath("//*[@id=\"__next\"]/div[1]/div[1]/section/div[2]/div[3]/div/div[1]/button/span/span[2]/span[2]"));
+   s.click();
+   
+   
+   WebElement p=driver.findElement(By.cssSelector("#__next > div.min-h-screen > div.mb-6.bg-gradient-to-br.from-white.to-grey-200 > section > div.mx-auto.Wrapper_box__4K_5d.px-4.\\32 xs\\:px-5.l\\:px-10.\\32 xl\\:px-5 > div.fresnel-container.fresnel-greaterThanOrEqual-2xl > div > div.z-60.absolute.top-0.subpixel-antialiased.pt-2.transition-transform.duration-200 > div > div > div.px-8.pt-6 > div > div.grid.grid-rows-3.gap-4.mb-6 > div:nth-child(1) > div > button:nth-child(1)"));
+   p.click(); 
+  /* p.clear();
+   p.sendKeys("1");*/
+   Thread.sleep(2000);
+  // p.sendKeys(Keys.ENTER);
+   
+   WebElement apply=driver.findElement(By.className("PrimaryButton_small__8N1se"));
+   apply.click();   
+
+Thread.sleep(1000);
+
+//urvashi
+	List<WebElement> buttons = driver.findElements(By.tagName("button"));
+//	System.out.println(buttons.size());
+	buttons.get(7).click();
+	
+	Thread.sleep(40000);
+	
+	//-----------------------------------------------------------------------
+	
+	WebElement testDropDown= driver.findElement(By.id("sorting-selector"));
+   Select  dropdown=new Select(testDropDown);
+   dropdown.selectByVisibleText("Rating only");
+   
+   
+
+   WebElement m = driver.findElement(By.xpath("//span[@class='w-full text-center font-bold']"));
+   m.click();
+   
+   
+   //yaha tak theek -------------------------------------------------------------------------------------
+   
+   Thread.sleep(1000);
+   
+   List<WebElement> listElement = driver.findElements(By.className("ClickoutArea_priceWrapper__Rcth1"));
+
+   
+   System.out.println("List size : " + listElement.size());
+   
+   for(WebElement price : listElement)
+   {
+	   System.out.println(price.getText());
+   }
+   
+
+    }
+//-----------------------------yha tak sab theek hai------------------------------------------------------------------------
+    @AfterMethod
+ public void closeBrowser() {
+
+   //Take screenshot
+
+   File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+    try 
+    {
+    	Files.copy(screenshotFile.toPath(), new File("screenshot1.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+    	System.out.println("Screenshot captured successfully.");
+
+    } 
+    	catch (IOException e) 
+    {
+    	System.out.println("Failed to capture the screenshot.");
+    	e.printStackTrace();
+    }
+    	driver.close();
+   
+    }
+
+}
+
+
+
