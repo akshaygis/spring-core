@@ -1,0 +1,170 @@
+package com.hackq.com;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+
+public class holidayHomes {
+WebDriver driver =null ;
+public static LocalDate tomorrow;
+
+public String findDate(int n) {
+	tomorrow=LocalDate.now().plusDays(n);
+	DateTimeFormatter formatter=DateTimeFormatter.ofPattern("d MMMM yyyy");
+	String date=tomorrow.format(formatter);
+	return date;
+}
+
+    @Parameters("browser")
+    @BeforeMethod
+
+    public void OpenBrowser(String browser) {
+
+        if(browser.equalsIgnoreCase("chrome")) {
+
+            System.setProperty("webdriver.chrome.driver","C:\\Users\\2266634\\eclipse-workspace\\ProjectHackathon\\Drivers\\chromedriver.exe" );
+
+            driver = new ChromeDriver();
+
+        } else {
+            System.setProperty("webdriver.edge.driver","C:\\Users\\2266634\\eclipse-workspace\\ProjectHackathon\\Drivers\\msedgedriver.exe");
+
+            driver = new EdgeDriver();
+
+        }
+
+        driver.manage().window().maximize() ;
+
+     }
+
+    @Test
+
+    public void VerifyDiffrentTestCase() throws InterruptedException{
+
+        driver.get("https://www.tripadvisor.in");
+
+       driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+       JavascriptExecutor js=(JavascriptExecutor) driver;
+        WebElement search=driver.findElement(By.xpath("//input[@placeholder='Where to?']"));
+        search.sendKeys("nairobi");
+        Thread.sleep(1000);
+        //to click on the nairobi 
+        driver.findElement(By.className("EtzER")).click();
+        
+        Thread.sleep(1000);
+        //to select Holiday homes
+        driver.findElement(By.xpath("//*[@id=\"lithium-root\"]/main/div[1]/div/div[1]/nav/div/div/div[1]/a[6]/span")).click();
+        
+        
+        //	to scroll until i get suitability option 
+        
+        WebElement toScroll=driver.findElement(By.xpath("//h3[normalize-space()='Suitability']"));
+        js.executeScript("arguments[0].scrollIntoView();", toScroll);
+        
+        driver.findElement(By.xpath("//a/span[text()='Holiday homes']")).click();
+        
+      //scroll until you can see suitability option
+        WebElement toscrool = driver.findElement(By.xpath("//h3[text()='Suitability']"));
+        js.executeScript("arguments[0].scrollIntoView();", toscrool);
+        //click on calender
+        driver.findElement(By.cssSelector("span.biGQs._P.fiohW.uWleQ")).click(); 
+
+
+        //creating Holiday home object
+        holidayHomes obj = new holidayHomes();
+        String tomorrowDate = obj.findDate(1);
+        driver.findElement(By.xpath("//div[@aria-label='" +tomorrowDate+ "']")).click();
+
+        // for 5th day after tomorrow's date
+        String endDate = obj.findDate(5);
+
+        driver.findElement(By.xpath("//div[@aria-label='" +endDate+ "']")).click();
+
+        Thread.sleep(1000); 
+        
+        //adding guest
+        driver.findElement(By.cssSelector("#component_2 > div > div.cnrzg.Gi.Z.BC.f.t > div > div.fyJSg.f > div > div > div:nth-child(3) > div.KFWPn > button")).click();
+        driver.findElement(By.xpath("//div[@class='ZSTqW f u Wg vfszC']//button[@title='increase']//*[name()='svg']")).click();
+        driver.findElement(By.xpath("//div[@class='ZSTqW f u Wg vfszC']//button[@title='increase']//*[name()='svg']")).click();
+        
+        //click on apply
+        driver.findElement(By.xpath("//span[normalize-space()='Apply']")).click();
+        Thread.sleep(1000);
+        
+        //dropdown rating 
+        driver.findElement(By.xpath("//*[@id=\"component_2\"]/div/div[3]/div/div/div[2]/div[1]/div[1]/div[2]/div/div/div/button/div/span[1]")).click();
+        Thread.sleep(1000);
+        //select rating from dropdown
+        driver.findElement(By.xpath("//span[contains(text(),'Traveller Rating')]")).click();
+        Thread.sleep(1000);
+        
+        //to scroll till bedroom is visible
+        WebElement Amenities  = driver.findElement(By.xpath("//*[@id=\"component_2\"]/div/div[4]/div/div[1]/div/div[1]/div[1]/div[1]/div/div/div[1]/h3"));
+        js.executeScript("arguments[0].scrollIntoView();",Amenities);
+        Thread.sleep(2000);
+         
+        //to click on show all
+        driver.findElement(By.xpath("//*[@id=\":component_2-R1l9icl:\"]/div/div[2]/button/span/div")).click();
+        Thread.sleep(1000);
+        //to click on elevator and apply
+        driver.findElement(By.xpath("//*[@id=\"BODY_BLOCK_JQUERY_REFLOW\"]/div[14]/div/div[2]/div/div[2]/div[2]/span[9]/span/div[1]/label/span")).click();
+         driver.findElement(By.cssSelector("#BODY_BLOCK_JQUERY_REFLOW > div.HyAcm.D.t._U.s.l.Za.f > div > div.HllFM.F- > div > div > button > span")).click();
+     
+         Thread.sleep(4000);
+         // to make list of all the price 
+         WebElement item1 = null;
+         WebElement item2 = null;
+         WebElement item3 = null;
+
+//         WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(10));
+//         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//a[@class='BMQDV._F.G-.wSSLS.SwZTJ.FGwzt.ukgoS']")));
+         
+         List<WebElement> hotelNames1 = driver.findElements(By.cssSelector("#component_2 > div > div:nth-child(3) > div > div.w > div > div:nth-child(4) > div:nth-child(1) > div > div.mIzQh.Gi.f.Fr.H_ > div > div.yJIls.z.P0.M0 > header > div > div > div.biGQs._P.fiohW.alXOW.NwcxK.GzNcM.ytVPx.UTQMg.RnEEZ.ngXxk > div > a > div > div"));
+         List<WebElement> perNightPrice = driver.findElements(By.cssSelector("#component_2 > div > div:nth-child(4) > div > div.w > div > div:nth-child(4) > div:nth-child(1) > div > div > div > div.yJIls.z.P0.M0 > div.OJLiL.P0.M0._T > div > div > div > div.qhYuW.e.k.f > div.yyeZp > div.AoPZk.f.O > div.biGQs._P.fiohW.veSeD"));
+         List<WebElement> totalPrice = driver.findElements(By.cssSelector("#component_2 > div > div:nth-child(4) > div > div.w > div > div:nth-child(4) > div:nth-child(1) > div > div > div > div.yJIls.z.P0.M0 > div.OJLiL.P0.M0._T > div > div > div > div.qhYuW.e.k.f > div.yyeZp > div.ejdoA > div"));
+
+         for (int i = 0; i<3; i++)
+         {
+             item1  = hotelNames1.get(i);
+             item2  = perNightPrice.get(i);
+             item3  = totalPrice.get(i);
+
+             System.out.println( item1.getText() + " , " + item2.getText() + " , " + item3.getText() );
+
+         }
+         
+        
+         
+	
+        
+}
+    
+}
+
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">  
+<suite name="project">
+	<parameter name = "browser" value ="chrome"></parameter>
+<test name="test">
+	<classes>
+	<class name = "com.hackq.com.holidayHomes"/>
+	</classes>
+</test>
+</suite> <!-- Suite -->
