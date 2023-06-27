@@ -1,0 +1,172 @@
+An application has been designed to calculate the EMI Amount based on the Amount, Years, and Rate of Interest
+
+Pass the required data to the input field from Excel using Apache POI
+
+Please refer below link for Application under test
+
+URL: https://webapps.tekstac.com/FormRegistration/EMICalculator.html
+
+ 
+
+Test Scenario:
+
+S.NO
+
+Actions to be performed
+
+Expected Result
+
+1
+
+Launch the application
+
+Application is launched
+
+2
+
+Enter the following data
+
+Click on 'Click on me' to enter the name link and handle the pop up
+
+Test data: John
+
+Pass the name from excel in the popup
+
+Amount:6000
+
+Years:2
+
+ROI:2
+
+Pass the remaining input fields like Amount,Years,ROI from the excel
+
+Click on the calculate emi using calculate button and handle the alert
+
+Print the displayed amount in the console
+
+The show bill displays the platform details and the ordered purchase.
+
+ 
+
+Validation rules:
+
+All the fields are mandatory
+
+All the input fields are numeric
+
+ 
+
+Following are the java classes that contains code snippets.
+
+ 
+
+DriverSetup.java
+
+Create driver (complete implementation is given for you)
+
+Emicalculator.java
+
+Create the Page object model and required methods for valid scenario
+
+ExcelUtils.java
+
+Create readExcelData(String sheet Name) to read the test data from excel
+
+TestEmiCalculator.java
+
+Get the data from excel and Pass on to the input fields
+
+ 
+
+Procedure to complete the case study
+
+1.   class DriverSetup is completely implemented for your reference. This class is configured to test using Firefox browser and Firefox driver.
+
+a)   Use the method 'getDriver' to create a driver wherever required.
+
+b)   DO NOT CHANGE THIS CLASS
+
+ 
+
+2. Class named EmiCalculator.java is already available in template code.
+
+Hint : Do NOT remove the existing code.
+
+ Create PageObjectModel for the required webelements
+
+Method Name
+
+Description
+
+public void setName(String name)
+handle the popup and send text using sendkeys with 'name'
+public void setAmount(String amt)
+
+locate and fill the input box of the 'Amount' with 'amt'
+
+public void setYear (String yrs)
+
+locate and fill the input box of the 'years' with 'yrs'
+
+public void setROI (String interest)
+
+locate and fill the input box of the 'ROI' with 'interest'
+
+public void setCalculate()
+
+locate and submit the calculate button
+
+public void setAlert()
+
+ 
+
+Handle the alert once the calculate button is clicked
+
+public String getEmiAmount()
+
+locate the calculated amount message and return the text
+
+.
+
+3. Class named ExcelUtils.java is already available in template code.
+
+Hint : Do NOT remove the existing code.
+
+public static String[] readExcelData(String sheetName)
+
+Using the sheet name passed to this method, read the data and store it in a string array
+
+ 
+
+
+
+4. Class named TestEmiCalculator.java is already available in template code.
+
+Hint : Do NOT remove the existing code.
+
+ public void setUp()
+
+Create the driver using method 'getDriver' in class DriverSetup.
+
+Assign it to the variable 'driver'
+
+public static String[] getExcelData()
+
+Call the method 'readExcelData' in class 'ExcelUtils' using sheet name emi_valid
+
+public void testValidEmiCalculator(String[] data)
+
+call the method required  in class 'EmiCalculator' and pass the excel data
+
+print the output in console
+
+public void closeBrowser
+
+close the browser
+
+main.java
+
+create the object and call the required methods
+
+ 
+
