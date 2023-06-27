@@ -1,0 +1,153 @@
+To understand the basic selenium concepts using javascript executor. Do the selenium operations like finding elements and submitting form using javascript executor.
+
+
+
+Problem Description:  
+
+An application has been designed to collect the below details of the user for registration: 
+
+Name,  Address, Mobile Number, Email. 
+
+Upon submitting the valid details, a success message appears in the new page 
+
+
+
+Please refer below link for Application under test 
+
+https://webapps.tekstac.com/Users/
+
+
+
+Test Scenario:  
+
+S.NO
+
+Actions to be performed
+
+Expected Result
+
+1
+
+Launch the application  
+
+Application is launched 
+
+2
+
+Enter the following data  
+
+Name: Steven
+
+Address:  Coimbatore
+
+Mobile Number: 2139495624 
+
+Email: steve@ca.com 
+
+Click the Submit button  
+
+The submitted details should be displayed below
+
+ 
+
+ 
+
+Validation rules: 
+
+- Enter valid data for all fields. 
+
+- Enter name
+
+- Enter address
+
+. Enter mobile
+
+. Enter email
+
+
+
+Following are the java classes that contain code snippets. 
+
+DriverSetup.java 
+
+Create driver (complete implementation is given for you) 
+
+JavaScriptExecutor.java 
+
+Test the page for user registration with valid data
+
+ 
+
+ Procedure to complete the case study 
+
+1. Class DriverSetup is completely implemented for your reference. This class is configured to test using Firefox browser and Firefox driver. 
+
+a) Use the method 'getWebDriver' to create a driver wherever required. 
+
+b) DO NOT CHANGE THIS CLASS 
+
+3. Class named  JavaScriptExecutor is already available in template code.
+
+Hint: Do NOT remove the existing code.
+
+Fill the following methods in JavaScriptExecutor.java with required code 
+
+Method Name 
+
+Description 
+
+public WebDriver createDriver()
+
+Create the driver using 'getWebDriver' method. Assign it to variable 'driver'
+
+Return the variable driver.
+
+public String setUserDetails(String name,String address, String mobileno, String mail)
+
+Using the driver, Locate the element using javascript executor ONLY.
+
+Use document  getElementById  or  getElementsByName or getElementsByTagName
+
+Set the form values and submit
+
+Return the displayed message
+
+public void refreshPage()
+
+Refresh the page 
+
+public String getNameErrorMessage()
+
+Locate the name error message displayed after empty form submit.
+Get the error text and return it
+
+public String getMobileErrorMessage()
+
+Locate the mobile error message displayed after empty form submit.
+
+Get the error text and return it
+
+public String getEmailErrorMessage()
+
+Locate the email error message displayed after empty form submit.
+Get the error text and return it
+
+public static void main(String[] args)
+
+Invoke the createDriver() method
+Invoke the setUserDetails() method and pass the values.
+
+Invoke the refreshPage() method
+Invoke the setUserDetails() method with empty values
+Invoke the method getNameErrorMessage()
+
+Invoke the method getMobileErrorMessage()
+Invoke the method getEmailErrorMessage()
+
+ 
+
+IMPORTANT: 
+
+1. Use 'javascript executor' concept to locate elements and submit form.  Use 'Document GetElementBy/GetElementsBy' concept in javascript.
+
+2. DO NOT USE 'FIND ELEMENT' basic concept
