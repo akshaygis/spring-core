@@ -1,0 +1,286 @@
+Objective: 
+
+To test a web application with Selenium using TestNG. The basic selenium concepts like Page Object Model, Web Driver, Web Elements, Locators, Apache POI and TestNG are covered.  
+
+
+Problem Description:
+
+An application has been designed to collect the below details of the user for address book: 
+
+Name, Mobile, DOB, Gender, Address & Register. 
+
+Upon adding the valid details, the data appears in next page in a tabular format in the same page with Registered successfully message
+
+Extract the Success message & display in console output
+
+
+
+Please refer below link for Application under test
+
+https://webapps.tekstac.com/CustomerRegistration_4284/
+
+
+
+Test Scenario: 
+
+S.NO
+
+Actions to be performed
+
+            Expected Result
+
+1
+
+Launch the application   
+
+Application is launched
+
+2
+
+Name: Robert
+
+Mobile: 2132412313
+
+DOB: 31/04/1990
+
+Gender: male
+
+Address: Coimbatore
+
+
+
+Submit the form
+
+The submitted details will be displayed in a table.
+
+
+Validation rules: 
+
+- Enter valid data for all fields.
+
+- Extract the data using data provider
+
+- Pass the data to Web elements using data provider    
+
+- Use of BeforeClass, Test with Data Provider & AfterClass annotations
+
+ 
+
+Following are the java classes that contains code snippets. 
+
+DriverSetup.java 
+
+Create driver (complete implementation is given for you) 
+
+TestValidCustomerRegistration.java 
+
+Test the page for valid scenario (that is, all form data are valid) 
+
+CustomerDetails.java
+
+Set the name, mobile, dob, gender, address
+
+ 
+
+Procedure to complete the case study 
+
+1. class DriverSetup is completely implemented for your reference. This class is configured to test using Firefox browser and Firefox driver. 
+
+     a) Use the method 'getDriver' to create a driver wherever required. 
+
+     b) DO NOT CHANGE THIS CLASS 
+
+2. Class named 'CustomerDetails' is already available in template code.
+
+Hint: In this classes, constructors are already given. If required, you can add more code into it but do NOT remove the existing code.
+
+Fill the following methods in CustomerDetails.java with required code
+
+Method Name
+
+Description
+
+public void  setCustomerName (String name)
+
+ 
+
+Locate the Web Element corresponding to the 'Customer Name' (TextField) using specific locators.
+
+Pass the customer name as a parameter to this method
+
+Use the sendKeys() method and fill the input box of the 'customer name' with 'name'
+
+ 
+
+public void  setCustomerMobile (String mobile)
+
+Locate the Web Element corresponding to 'Mobile No' (TextField) using specific locators.
+
+Pass the customer age as a parameter to this method
+
+Use the sendKeys() method and fill the input box of the 'Mobile No' with 'mobile'.
+
+public void  setCustomerDOB (String dob)
+
+ 
+
+Locate the Web Element corresponding to the 'DOB' (TextField) using specific locators.
+
+Pass the customer address as a parameter to this method
+
+Use the sendKeys() method and fill the input box of the 'DOB' with 'dob'
+
+public void  setCustomerGender (String gender)
+
+ 
+
+Locate the Web Element corresponding to the 'Gender' (Radio button Field) using specific locators. 
+
+Use the click() method and choose the radio option
+
+public void  setCustomerAddress (String addr)
+
+
+
+
+
+ 
+
+Locate the Web Element corresponding to the 'Address' (TextField) using specific locators.
+
+Pass the customer email id as a parameter to this method
+
+Use the sendKeys() method and fill the input box of the 'Address' with 'addr'
+
+public void SubmitForm()
+
+ 
+
+Locate the Web Element of the 'Register' button using specific locators.
+
+Click the 'Register' button and do the form submission.
+
+.
+
+3. class 'TestValidCustomerRegistration' in TestValidCustomerRegistration.java 
+
+     a) This class is used to read the data using data provider annotation
+
+Hint : Do NOT remove the existing code. 
+
+Fill the following methods in TestValidCustomerRegistration.java with required code 
+
+Method Name 
+
+Description 
+
+public WebDriver  setUp()
+
+Create the driver using method  'getDriver'  in class   DriverSetup.
+
+Assign it to the variable 'driver'
+
+
+
+Objects StudentDetails is already created.  Please do not delete or modify these lines.
+
+setformValues= new CustomerDetails(driver);
+
+
+
+Return the driver
+
+
+
+Add '  BeforeClass' annotation
+
+public String[][] getValidCustomerData()
+
+Call the method 'readExcelData' in class 'ExcelUtils' using file name 'CustomerRegistration.xlsx' and sheet name ' CustomerDetails'
+
+
+
+Return the value
+
+
+
+Apply the required annotation with its essential attributes for inputs
+
+
+
+Use the DataProvider name as 'getValidData'
+
+
+
+
+
+
+
+
+
+
+
+public void testValidCustomerRegistration(String custname, String custmobile, String custdob, String custgender, String custaddr)
+
+Using 'setFormValues' object set the form values passed as the parameter using DataProvider method 'getValidCustomerData'
+
+Use 'setFormValues' object and call the method setCustomerName() and pass the 'custname' as parameter.
+
+Use 'setFormValues' object and call the method setCustomerMobile() and pass the 'custmobile' as parameter.
+Use 'setFormValues' object and call the method setCustomerDOB() and pass the'custdob' as parameter.
+Use 'setFormValues' object and call the method setCustomerGender() and pass the 'custgender' as parameter.
+Use 'setFormValues' object and call the method setCustomerAddress() and pass the 'custaddr' as parameter.
+
+Use 'setFormValues' object and call the method SubmitForm() to click the 'Register' button.
+
+
+After clicking the button, it will display the output
+
+Locate the submitted customer name displayed after form submit, retrieve and store customer name in a static variable ' custnametxt'.
+Locate the submitted customer mobile displayed after form submit, retrieve and store customer mobile in a static variable 'custmobiletxt'.
+
+
+
+Apply the required annotation with its essential attributes for inputs
+
+Add 'Test' annotation
+
+Use the dataProvider name as 'getValidData'
+
+public void closeBrowser() 
+
+This method should close the driver 
+
+Add 'AfterClass' annotation
+
+
+
+4. class 'ExcelUtils' in ExcelUtils.java,
+
+a) This class is used to read the 'CustomerRegistration.xlsx' excel.
+
+b) Fill the given method with required code
+
+            Method Name
+
+Description
+
+public static String[][]  readExcelData(String fileName, String sheetName)
+
+Get the excel file path (note: the excel is located under same directory)
+
+Using the file name and sheet name passed to this method, read the data and store it in a string array.
+
+Return the array.  
+
+ 
+
+5. TestNG file named testng.xml is already available in template code.
+
+Do NOT remove the existing code.
+
+-   Specify the name of the class to be tested in the file 
+
+
+
+Excel File: Use the excel sheet name 'CustomerDetails' in 'customerRegistration.xlsx'
